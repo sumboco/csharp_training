@@ -10,22 +10,16 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class ContactRemovalTests : TestBase
     {
-       
         [Test]
-        public void GroupCreationTest()
+        public void ContactRemovalTest()
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
-            GroupData group = new GroupData("qwe");
-            group.Header = "tew";
-            group.Footer = "ew";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
+            SelectContact(2);
+            DeleteContact();
+            CloseAlertDeleteContact();
             Logout();
         }
 
