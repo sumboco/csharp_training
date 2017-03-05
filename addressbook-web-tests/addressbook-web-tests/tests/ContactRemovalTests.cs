@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -15,12 +14,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            SelectContact(2);
-            DeleteContact();
-            CloseAlertDeleteContact();
-            Logout();
+            app.Contact.Remove(2);
         }
 
     }
