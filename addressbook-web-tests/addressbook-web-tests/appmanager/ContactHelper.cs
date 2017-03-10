@@ -84,6 +84,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
 

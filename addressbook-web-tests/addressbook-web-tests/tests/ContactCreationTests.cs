@@ -19,6 +19,7 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("Ivan3", "Ivanov");
 
             app.Contact.Create(contact);
+            //app.Logout.Logout();
 
         }
     }
