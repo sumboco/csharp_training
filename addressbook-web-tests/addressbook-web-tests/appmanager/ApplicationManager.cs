@@ -17,7 +17,6 @@ namespace WebAddressbookTests
         protected string baseURL;
 
         protected LoginHelper loginHelper;
-        protected LogoutHelper logoutHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
@@ -30,7 +29,6 @@ namespace WebAddressbookTests
             baseURL = "http://localhost:9080/";
 
             loginHelper = new LoginHelper(this);
-            logoutHelper = new LogoutHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
@@ -73,14 +71,6 @@ namespace WebAddressbookTests
             get
             {
                 return loginHelper;
-            }
-        }
-
-        public LogoutHelper Logout
-        {
-            get
-            {
-                return logoutHelper;
             }
         }
 

@@ -36,6 +36,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove(int p)
+        {
+            SelectContact(p);
+            DeleteContact();
+            CloseAlertDeleteContact();
+            return this;
+        }
+
         public ContactHelper ReturnToContactPage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
@@ -51,14 +59,6 @@ namespace WebAddressbookTests
         public ContactHelper SelectContactModification(int p)
         {
             driver.FindElement(By.XPath("//tbody/tr[" + p + "]/td[8]/a/img")).Click();
-            return this;
-        }
-
-        public ContactHelper Remove(int p)
-        {
-            SelectContact(p);
-            DeleteContact();
-            CloseAlertDeleteContact();
             return this;
         }
 
