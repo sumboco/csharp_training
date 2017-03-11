@@ -20,13 +20,12 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
-
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
         }
-
+         
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
@@ -97,6 +96,15 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        public void IsElementGroupAndCreate(GroupData createData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (!IsElementPresent(By.XPath("//form/span")))
+            {
+                Create(createData);
+            }
         }
     }
 }

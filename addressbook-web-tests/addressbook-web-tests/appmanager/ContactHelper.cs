@@ -99,7 +99,14 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
-
+        public void IsElementContactAndCreate(ContactData createContact)
+        {
+            manager.Navigator.OpenHomePage();
+            if (!IsElementPresent(By.XPath("//tbody/tr[2]")))
+            {
+                Create(createContact);
+            }
+        }
 
     }
 }

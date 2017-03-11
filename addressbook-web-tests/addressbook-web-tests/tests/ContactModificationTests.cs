@@ -14,8 +14,13 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData editContact = new ContactData("newIvan3", "newIvanov");
 
+            //prepare
+            ContactData createContact = new ContactData("Ivan3", "Ivanov");
+            app.Contact.IsElementContactAndCreate(createContact);
+
+            //action
+            ContactData editContact = new ContactData("newIvan3", "newIvanov");
             app.Contact.Modify(2, editContact);
 
         }

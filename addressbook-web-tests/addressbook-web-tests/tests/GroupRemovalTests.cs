@@ -16,9 +16,14 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            //prepare
+            GroupData createGroup = new GroupData("2qwe123");
+            createGroup.Header = "tew31";
+            createGroup.Footer = "ew124";
+            app.Group.IsElementGroupAndCreate(createGroup);
 
+            //action
             app.Group.Remove(1);
-
         }
 
     }
