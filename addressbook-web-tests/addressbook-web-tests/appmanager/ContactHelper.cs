@@ -14,6 +14,8 @@ namespace WebAddressbookTests
     public class ContactHelper : HelperBase
     {
 
+        private List<ContactData> contactCache = null;
+
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
@@ -54,6 +56,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -86,6 +89,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -98,8 +102,10 @@ namespace WebAddressbookTests
         public ContactHelper DeleteContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
+
         public void IsElementContactAndCreate(ContactData createContact)
         {
             manager.Navigator.OpenHomePage();
@@ -111,17 +117,21 @@ namespace WebAddressbookTests
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = 'entry']"));
-            for (int i = 0; i < elements.Count(); i++)
-            //foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                IWebElement fistNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(3)"));
-                IWebElement lastNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(2)"));
-                //contacts.Add(new ContactData(element.Text));
-                contacts.Add(new ContactData(fistNameElement.Text, lastNameElement.Text));
+                contactCache = new List<ContactData>();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = 'entry']"));
+                for (int i = 0; i < elements.Count(); i++)
+                //foreach (IWebElement element in elements)
+                {
+                    IWebElement fistNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(3)"));
+                    IWebElement lastNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(2)"));
+                    //contacts.Add(new ContactData(element.Text));
+                    contactCache.Add(new ContactData(fistNameElement.Text, lastNameElement.Text));
+                }
             }
-            return contacts;
+            
+            return new List<ContactData>(contactCache);
         }
 
     }
