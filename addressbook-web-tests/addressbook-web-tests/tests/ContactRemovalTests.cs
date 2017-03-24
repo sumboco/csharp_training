@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -20,7 +21,14 @@ namespace WebAddressbookTests
             app.Contact.IsElementContactAndCreate(createContact);
 
             //action
-            app.Contact.Remove(2);
+            List<ContactData> oldContacts = app.Contact.GetContactList();
+            app.Contact.Remove(0);
+            app.Navigator.OpenHomePage();
+            List<ContactData> newContacts = app.Contact.GetContactList();
+            oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
     }

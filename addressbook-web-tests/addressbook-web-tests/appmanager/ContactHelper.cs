@@ -27,6 +27,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         public ContactHelper Modify(int p, ContactData editContact)
         {
             SelectContactModification(p);
@@ -58,13 +59,13 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContactModification(int p)
         {
-            driver.FindElement(By.XPath("//tbody/tr[" + p + "]/td[8]/a/img")).Click();
+            driver.FindElement(By.XPath("//tbody/tr[" + (p + 2) + "]/td[8]/a/img")).Click();
             return this;
         }
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//tr[" + index + "]/td[1]/input")).Click();
+            driver.FindElement(By.XPath("//tr[" + (index + 2) + "]/td[1]/input")).Click();
             return this;
         }
 
@@ -106,6 +107,21 @@ namespace WebAddressbookTests
             {
                 Create(createContact);
             }
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = 'entry']"));
+            for (int i = 0; i < elements.Count(); i++)
+            //foreach (IWebElement element in elements)
+            {
+                IWebElement fistNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(3)"));
+                IWebElement lastNameElement = driver.FindElement(By.CssSelector("tr:nth-child(" + (i + 2) + ")[name = 'entry'] td:nth-child(2)"));
+                //contacts.Add(new ContactData(element.Text));
+                contacts.Add(new ContactData(fistNameElement.Text, lastNameElement.Text));
+            }
+            return contacts;
         }
 
     }
