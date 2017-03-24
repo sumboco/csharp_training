@@ -50,8 +50,16 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname);
-            //return Lastname.CompareTo(other.Lastname);
+            if (Object.ReferenceEquals(other.lastname, this.lastname))
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+            else
+            {
+                return Lastname.CompareTo(other.Lastname);
+            }
+
+
         }
 
 
