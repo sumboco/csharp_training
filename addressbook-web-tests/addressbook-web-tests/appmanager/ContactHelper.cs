@@ -8,6 +8,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections;
 
 namespace WebAddressbookTests
 {
@@ -72,6 +73,11 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper OpenProfile(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+            return this;
+        }
 
         public ContactHelper FillContactForm(ContactData contact)
         {
@@ -146,7 +152,7 @@ namespace WebAddressbookTests
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhome = allPhone,
+                AllPhone = allPhone,
                 AllEmail = allEmail
             };
         }
@@ -177,6 +183,37 @@ namespace WebAddressbookTests
                 Email = email,
                 Email2 = email2,
                 Email3 = email3
+            };
+        }
+
+        public ContactData GetContactInformationFromProfile(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            OpenProfile(index);
+            
+            //получаем данные из контент из профиля
+            string contactProfile = driver.FindElement(By.Id("content")).Text;
+            
+            // преобразуем в массив
+            string[] arrayContactProfile = contactProfile.Split('\n');
+            
+            //выибираем первую строчку, где Имя и Фамилия
+            string fioContactProfile = arrayContactProfile[0].Trim('\r');
+            string[] arrayFioContactProfile = fioContactProfile.Split();
+            string firstname = arrayFioContactProfile[0];
+            string lastname = arrayFioContactProfile[1];
+
+            //собираем новый контент профиля без первой строчки(Имени Фамилии)
+            string newContactProfile = "";
+            for (int i = 1; i < arrayContactProfile.Length; i++)
+            {
+                newContactProfile = newContactProfile + arrayContactProfile[i] + "\n";
+            }
+            string allProfile = newContactProfile.Trim('\n');
+
+            return new ContactData(firstname, lastname)
+            {
+                AllProfile = allProfile
             };
         }
 

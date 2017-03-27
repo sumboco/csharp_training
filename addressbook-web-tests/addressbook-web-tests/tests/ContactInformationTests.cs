@@ -14,7 +14,7 @@ namespace WebAddressbookTests
     public class ContactInformationTests : AuthTestBase
     {
         [Test]
-        public void TestContactInformation()
+        public void TestContactInformationMainPage()
         {
             ContactData fromTable = app.Contact.GetContactInforamitonFromTable(0);
             ContactData fromForm = app.Contact.GetContactInforamitonFromEditForm(0);
@@ -23,7 +23,17 @@ namespace WebAddressbookTests
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllEmail, fromForm.AllEmail);
-            Assert.AreEqual(fromTable.AllPhome, fromForm.AllPhome);
+            Assert.AreEqual(fromTable.AllPhone, fromForm.AllPhone);
+        }
+        [Test]
+        public void TestContactInformationProfilePage()
+        {
+            ContactData fromProfile = app.Contact.GetContactInformationFromProfile(0);
+            ContactData fromForm = app.Contact.GetContactInforamitonFromEditForm(0);
+            //app.Contact.GetContactInformationFromProfile(0);
+            //System.Console.Out.Write("143");
+            Assert.AreEqual(fromProfile, fromForm);
+            Assert.AreEqual(fromProfile.AllProfile, fromForm.AllProfile);
         }
     }
 }

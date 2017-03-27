@@ -10,8 +10,9 @@ namespace WebAddressbookTests
     {
         //private string firstName;
         //private string lastName;
-        private string allPhome;
+        private string allPhone;
         private string allEmail;
+        private string allProfile;
 
         public ContactData(string firstName)
         {
@@ -73,6 +74,15 @@ namespace WebAddressbookTests
             return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
+        private string CleanUpPhone(string liter, string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return liter + ": "+ phone + "\r\n";
+        }
+
         private string CleanUpEmail(string email)
         {
             if (email == null || email == "")
@@ -80,6 +90,15 @@ namespace WebAddressbookTests
                 return "";
             }
             return email.Replace(" ", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        private string CleanUpAddress(string address)
+        {
+            if (address == null || address == "")
+            {
+                return "";
+            }
+            return address + "\r\n";
         }
 
         public string FirstName { get; set; }
@@ -92,12 +111,12 @@ namespace WebAddressbookTests
         public string Email2 { get; set; }
         public string Email3 { get; set; }
 
-        public string AllPhome {
+        public string AllPhone {
             get
             {
-                if(allPhome != null)
+                if(allPhone != null)
                 {
-                    return allPhome;
+                    return allPhone;
                 }
                 else
                 {
@@ -106,7 +125,7 @@ namespace WebAddressbookTests
             }
             set
             {
-                allPhome = value;
+                allPhone = value;
             }
         }
         
@@ -126,6 +145,27 @@ namespace WebAddressbookTests
             set
             {
                 allEmail = value;
+            }
+        }
+
+        public string AllProfile
+        {
+            get
+            {
+                if(allProfile != null)
+                {
+                    return allProfile;
+                }
+                else
+                {
+                    return (CleanUpAddress(Address) + "\r\n" + 
+                           CleanUpPhone("H", HomePhome) + CleanUpPhone("M", MobilePhome) + CleanUpPhone("W", WorkPhome)+ "\r\n" +
+                           CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allProfile = value;
             }
         }
     }
