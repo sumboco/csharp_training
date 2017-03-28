@@ -199,26 +199,9 @@ namespace WebAddressbookTests
             OpenProfile(index);
             
             //получаем данные из контент из профиля
-            string contactProfile = driver.FindElement(By.Id("content")).Text;
-            
-            // преобразуем в массив
-            string[] arrayContactProfile = contactProfile.Split('\n');
-            
-            //выибираем первую строчку, где Имя и Фамилия
-            string fioContactProfile = arrayContactProfile[0].Trim('\r');
-            string[] arrayFioContactProfile = fioContactProfile.Split();
-            string firstname = arrayFioContactProfile[0];
-            string lastname = arrayFioContactProfile[1];
+            string allProfile = driver.FindElement(By.Id("content")).Text;
 
-            //собираем новый контент профиля без первой строчки(Имени Фамилии)
-            string newContactProfile = "";
-            for (int i = 1; i < arrayContactProfile.Length; i++)
-            {
-                newContactProfile = newContactProfile + arrayContactProfile[i] + "\n";
-            }
-            string allProfile = newContactProfile.Trim('\n');
-
-            return new ContactData(firstname, lastname)
+            return new ContactData()
             {
                 AllProfile = allProfile
             };

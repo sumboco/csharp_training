@@ -32,7 +32,6 @@ namespace WebAddressbookTests
             ContactData fromForm = app.Contact.GetContactInforamitonFromEditForm(0);
             //app.Contact.GetContactInformationFromProfile(0);
             //System.Console.Out.Write("143");
-            Assert.AreEqual(fromProfile, fromForm);
             Assert.AreEqual(fromProfile.AllProfile, fromForm.AllProfile);
         }
     }

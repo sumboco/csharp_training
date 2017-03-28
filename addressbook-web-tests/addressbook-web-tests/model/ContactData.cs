@@ -14,6 +14,9 @@ namespace WebAddressbookTests
         private string allEmail;
         private string allProfile;
 
+        public ContactData()
+        {
+        }
         public ContactData(string firstName)
         {
             FirstName = firstName;
@@ -158,7 +161,8 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUpAddress(Address) + "\r\n" + 
+                    return (FirstName + " " + LastName + "\r\n" +
+                           CleanUpAddress(Address) + "\r\n" + 
                            CleanUpPhone("H", HomePhome) + CleanUpPhone("M", MobilePhome) + CleanUpPhone("W", WorkPhome)+ "\r\n" +
                            CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim();
                 }
