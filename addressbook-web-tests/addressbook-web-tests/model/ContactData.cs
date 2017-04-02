@@ -107,9 +107,9 @@ namespace WebAddressbookTests
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
-        public string HomePhome { get; set; }
-        public string MobilePhome { get; set; }
-        public string WorkPhome { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
@@ -123,7 +123,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUpPhone(HomePhome) + CleanUpPhone(MobilePhome) + CleanUpPhone(WorkPhome)).Trim();
+                    return (CleanUpPhone(HomePhone) + CleanUpPhone(MobilePhone) + CleanUpPhone(WorkPhone)).Trim();
                 }
             }
             set
@@ -163,7 +163,7 @@ namespace WebAddressbookTests
                 {
                     return (FirstName + " " + LastName + "\r\n" +
                            CleanUpAddress(Address) + "\r\n" + 
-                           CleanUpPhone("H", HomePhome) + CleanUpPhone("M", MobilePhome) + CleanUpPhone("W", WorkPhome)+ "\r\n" +
+                           CleanUpPhone("H", HomePhone) + CleanUpPhone("M", MobilePhone) + CleanUpPhone("W", WorkPhone)+ "\r\n" +
                            CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim();
                 }
             }

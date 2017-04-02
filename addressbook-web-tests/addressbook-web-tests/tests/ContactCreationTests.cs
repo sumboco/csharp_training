@@ -21,9 +21,9 @@ namespace WebAddressbookTests
                 contacts.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30))
                 {
                     Address = "kasldooglbvgfs",
-                    HomePhome = "234()23423",
-                    MobilePhome = "(32)2323-230230-43",
-                    WorkPhome = "2342-3456",
+                    HomePhone = "234()23423",
+                    MobilePhone = "(32)2323-230230-43",
+                    WorkPhone = "2342-3456",
                     Email = "test@test.test",
                     Email2 = "helloo@word.test",
                     Email3 = "mxcvjkfudf@kdslasd.test"

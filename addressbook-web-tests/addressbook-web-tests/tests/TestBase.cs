@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading;
 using NUnit.Framework;
-
+using System.Linq;
 
 namespace WebAddressbookTests
 {
@@ -20,6 +20,7 @@ namespace WebAddressbookTests
 
         public static Random rnd = new Random();
 
+        //Генерируются любые из таблицы ASCII символы
         public static string GenerateRandomString(int max)
         {
             int l = Convert.ToInt32(rnd.NextDouble() * max);
@@ -31,6 +32,22 @@ namespace WebAddressbookTests
 
             }
             return builder.ToString();
+        }
+
+        //Генерируются только заданные символы
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdeafhijklmnopqrtsuvwxyz";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+
+        //Генерируются только цифры как символы
+        public static string RandomDigital(int length)
+        {
+            const string chars = "1234567890";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
 
