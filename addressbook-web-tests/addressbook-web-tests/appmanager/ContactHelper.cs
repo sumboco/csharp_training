@@ -40,9 +40,26 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData toBeModify, ContactData editContact)
+        {
+            SelectContactModification(toBeModify.Id);
+            FillContactForm(editContact);
+            SubmitContactModification();
+            ReturnToContactPage();
+            return this;
+        }
+
         public ContactHelper Remove(int p)
         {
             SelectContact(p);
+            DeleteContact();
+            CloseAlertDeleteContact();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.Id);
             DeleteContact();
             CloseAlertDeleteContact();
             return this;
@@ -67,9 +84,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper SelectContactModification(String id)
+        {
+            driver.FindElement(By.XPath("//a[@href = 'edit.php?id="+ id + "']")).Click();
+            return this;
+        }
+
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//tr[" + (index + 2) + "]/td[1]/input")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.Id(id)).Click();
             return this;
         }
 

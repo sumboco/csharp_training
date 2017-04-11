@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -79,7 +80,7 @@ namespace WebAddressbookTests
             List<GroupData> newGroups = app.Group.GetGroupList();
             oldGroups.Add(group);
             oldGroups.Sort();
-            oldGroups.Sort();
+            newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
 
@@ -99,6 +100,34 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public void GroupCreationDBTest(GroupData group)
+        {
+            List<GroupData> oldGroups = GroupData.GetAll();
+
+            app.Group.Create(group);
+
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBGroupsConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Group.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
 
     }

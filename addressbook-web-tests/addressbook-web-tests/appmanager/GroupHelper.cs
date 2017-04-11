@@ -27,10 +27,30 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(GroupData oldData, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(oldData.Id);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -51,6 +71,12 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+ id +"'])")).Click();
             return this;
         }
 
@@ -121,7 +147,11 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                 foreach (IWebElement element in elements)
                 {
-                    groupCache.Add(new GroupData(element.Text));
+                    GroupData group = new GroupData(element.Text);
+                    group.Id = element.FindElement(By.TagName("input")).GetAttribute("value");
+                    groupCache.Add(group);
+                    
+                    //groupCache.Add(new GroupData(element.Text));
                 }
             }
             return new List<GroupData>(groupCache);

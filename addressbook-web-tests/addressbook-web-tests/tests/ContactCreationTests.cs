@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -117,6 +118,22 @@ namespace WebAddressbookTests
 
             Assert.AreEqual(oldContacts, newContacts);
 
+        }
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        public void ContactCreationDBTest(ContactData contact)
+        {
+
+            List<ContactData> oldContacts = ContactData.GetAll();
+            app.Contact.Create(contact);
+
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Add(contact);
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
