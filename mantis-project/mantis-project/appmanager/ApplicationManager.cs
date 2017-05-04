@@ -26,6 +26,7 @@ namespace mantis_project
             Navigator = new NavigationHelper(this);
             ManagementMenu = new ManagementMenuHelper(this);
             ProjectManager = new ProjectManagementHelper(this);
+            API = new APIHelper(this);
 
         }
 
@@ -65,5 +66,6 @@ namespace mantis_project
         public NavigationHelper Navigator { get; set; }
         internal ManagementMenuHelper ManagementMenu { get; set; }
         internal ProjectManagementHelper ProjectManager { get; private set; }
+        public APIHelper API { get; set; }
     }
 }

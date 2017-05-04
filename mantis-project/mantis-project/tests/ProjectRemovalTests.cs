@@ -33,5 +33,32 @@ namespace mantis_project
 
             app.Auth.Logout();
         }
+
+
+        [Test]
+        public void APIProjectRemovalTest()
+        {
+            //prepare
+            ProjectData project = new ProjectData()
+            {
+                ProjectName = RandomString(10),
+                ProjectDescription = RandomString(20)
+            };
+            app.API.APIIsElementProjectAndCrate(project);
+
+            //action
+            List<ProjectData> oldProjects = app.API.APIGetProjectList(new AccountData("usernew", "password"));
+            app.ProjectManager.RemoveProject(0);
+
+            List<ProjectData> newProjects = app.API.APIGetProjectList(new AccountData("usernew", "password"));
+            oldProjects.RemoveAt(0);
+
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
+
+            app.Auth.Logout();
+        }
     }
 }
